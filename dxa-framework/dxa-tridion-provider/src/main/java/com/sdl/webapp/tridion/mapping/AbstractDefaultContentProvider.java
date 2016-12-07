@@ -215,11 +215,8 @@ public abstract class AbstractDefaultContentProvider implements ContentProvider 
                 final org.dd4t.contentmodel.Page genericPage;
                 try {
                     synchronized (LOCK) {
-                        if (dd4tPageFactory.isPagePublished(path, publicationId)) {
-                            genericPage = dd4tPageFactory.findPageByUrl(path, publicationId);
-                        } else {
-                            return null;
-                        }
+                        String tcmId = "ish:"+publicationId+"-164155-16";
+                        genericPage = dd4tPageFactory.findPageByTcmId(tcmId);
                     }
                 } catch (ItemNotFoundException e) {
                     log.debug("Page not found: [{}] {}", publicationId, path, e);
