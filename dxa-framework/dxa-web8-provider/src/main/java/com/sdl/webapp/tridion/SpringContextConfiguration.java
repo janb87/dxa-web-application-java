@@ -112,7 +112,7 @@ public class SpringContextConfiguration {
 
     @Bean
     public ODataContextEngine oDataContextEngine() {
-        return new ODataContextEngine();
+        return null; //new ODataContextEngine();
     }
 
     @Configuration
