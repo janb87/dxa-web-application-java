@@ -56,6 +56,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import static com.sdl.webapp.common.util.FileUtils.isFileOlderThan;
 import static com.sdl.webapp.common.util.FileUtils.parentFolderExists;
@@ -215,8 +216,24 @@ public abstract class AbstractDefaultContentProvider implements ContentProvider 
                 final org.dd4t.contentmodel.Page genericPage;
                 try {
                     synchronized (LOCK) {
-                        String tcmId = "ish:"+publicationId+"-164155-16";
-                        genericPage = dd4tPageFactory.findPageByTcmId(tcmId);
+                        if (publicationId == 1420746) {
+                            String pageId = "164163";
+                            if (path != "/index.html") {
+                                Pattern r = Pattern.compile("^\\/([0-9]+)\\.html$");
+                                Matcher m = r.matcher(path);
+                                if (m.find( )) {
+                                    pageId = m.group(1);
+                                }
+                            }
+                            String tcmId = "ish:" + publicationId + "-" + pageId + "-16";
+                            genericPage = dd4tPageFactory.findPageByTcmId(tcmId);
+                        } else {
+                            if (dd4tPageFactory.isPagePublished(path, publicationId)) {
+                                genericPage = dd4tPageFactory.findPageByUrl(path, publicationId);
+                            } else {
+                                return null;
+                            }
+                        }
                     }
                 } catch (ItemNotFoundException e) {
                     log.debug("Page not found: [{}] {}", publicationId, path, e);

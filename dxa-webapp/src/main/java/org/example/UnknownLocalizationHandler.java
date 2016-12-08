@@ -27,7 +27,7 @@ public class UnknownLocalizationHandler implements com.sdl.webapp.common.api.loc
         return new Localization() {
             @Override
             public String getId() {
-                return "1176127";
+                return "1420746";
             }
 
             @Override
